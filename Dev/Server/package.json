@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/deenaariff/projectxyz"
+  },
+  "author": "Deen Aariff",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "mongojs": "^2.2.2",
+    "morgan": "^1.6.1",
+    "restify": "^4.0.3"
+  }
+}
