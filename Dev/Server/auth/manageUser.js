@@ -1,4 +1,4 @@
-vi pwdMgr = require('./managePasswords');
+pwdMgr = require('./managePasswords');
 
 module.exports = function (server, db) {
 
@@ -27,13 +27,12 @@ module.exports = function (server, db) {
                                 error: err,
                                 message: "A user with this email already exists"
                             }));
-                        }
                     } else {
                         res.writeHead(200, {
-                            'Content-Type': 'application/json; charset=utf-8''
+                            'Content-Type': 'application/json; charset=utf-8'
                         });
-                        dbUser.passowrd = "":
-                        res.end(JSON.stringify(dbUser)):
+                        dbUser.passowrd = "";
+                        res.end(JSON.stringify(dbUser));
                     }
                 });
         });
@@ -41,6 +40,7 @@ module.exports = function (server, db) {
 
     });
  
+    // Response to Login Post 
     server.post('/api/1/app/auth/login', function (req, res, next) {
         var user = req.params;
         if (user.email.trim().length == 0 || user.password.trim().length == 0) {
@@ -62,7 +62,7 @@ module.exports = function (server, db) {
                         'Content-Type': 'application/json; charset=utf-8'
                     });
                     // remove passowrd hash before sending to the client
-                    dbUser.passowrd = "";
+                    dbUser.password = "";
                     res.end(JSON.stringify(dbUser));
                 } else {
                     res.writeHead(403, {
@@ -76,6 +76,7 @@ module.exports = function (server, db) {
         });
 
         return next();
+        }
     });        
 };
 

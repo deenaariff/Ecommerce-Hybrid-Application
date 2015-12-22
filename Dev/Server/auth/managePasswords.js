@@ -1,27 +1,30 @@
-var bcrypt = require('bycrypt');
+var bcrypt = require('bcrypt');
 
 module.exports.cryptPassword = function (password, callback) {
-    bycrypt.genSalt(10, funciton (err, salt) [
+    bcrypt.genSalt(10, function (err, salt) {
             
             // return error if err
-            if (err) 
+            if (err) {
                 return callback(err);
+            }
 
             // Returns encrypted password
-            bycrypt.hash(password, salt, functon (err, hash) {
+            bcrypt.hash(password, salt, function (err, hash) {
                 return callback(err,hash);
             });
    });
 };
 
-module.exports.comparePassword = function (password, userPassword, callback) 
+module.exports.comparePassword = function (password, userPassword, callback) {
 
     // Compares entered password with userPassword
-    bycrypt.compare(password, userPassword, function (err, isPasswordMatch) {
+    bcrypt.compare(password, userPassword, function (err, isPasswordMatch) {
             
             if (err)
                 return callback(err);
 
             // Return isPasswordMAtch
-            return callback(null, isPasswordMatch):
+            return callback(null, isPasswordMatch);
+    });
+}; 
 

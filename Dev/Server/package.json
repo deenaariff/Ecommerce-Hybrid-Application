@@ -11,7 +11,10 @@
     "url": "github.com/deenaariff/projectxyz"
   },
   "author": "Deen Aariff",
-  "license": "ISC",
+  "license": "MIT",
+  "engines": {
+    "node": "0.10.x"
+  },
   "dependencies": {
     "bcrypt": "^0.8.5",
     "mongojs": "^2.2.2",
