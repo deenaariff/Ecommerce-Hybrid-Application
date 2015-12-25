@@ -3,23 +3,23 @@ pwdMgr = require('./managePasswords');
 module.exports = function (server, db) {
 
     // unique index
-    db.appUsers.ensureIndex ({
-        email: 1 
+    db.users.ensureIndex ({
+        email: 1
     }, {
         unique: true
     })
-    
+
     // Response to Register User POST
     server.post('/api/v1/app/auth/register', function (req, res, next) {
         var user = req.params; // Define user var from param
-        // Encrypt Password 
+        // Encrypt Password
         pwdMgr.cryptPassword(user.password, function (err, hash) {
             user.password = hash; // convert userpassword to hashed value
-            console.log("n", hash); 
-            db.appUsers.insert(user, 
+            console.log("n", hash);
+            db.users.insert(user,
                 function (err, dbUser) {
                     if (err) {
-                        if (err.code == 11000) 
+                        if (err.code == 11000)
                             res.writeHead(400,{
                                 'Content-Type': 'application/json; charset=utf-8'
                             });
@@ -31,7 +31,7 @@ module.exports = function (server, db) {
                         res.writeHead(200, {
                             'Content-Type': 'application/json; charset=utf-8'
                         });
-                        dbUser.passowrd = "";
+                        dbUser.password = "";
                         res.end(JSON.stringify(dbUser));
                     }
                 });
@@ -39,8 +39,8 @@ module.exports = function (server, db) {
         return next();
 
     });
- 
-    // Response to Login Post 
+
+    // Response to Login Post
     server.post('/api/1/app/auth/login', function (req, res, next) {
         var user = req.params;
         if (user.email.trim().length == 0 || user.password.trim().length == 0) {
@@ -51,10 +51,10 @@ module.exports = function (server, db) {
                 error: "Invalid Credentials"
             }));
         console.log("in");
-        db.appUsers.findOne({
+        db.users.findOne({
             email: req.params.email
         }, function (err, dbUser) {
-            
+
             pwdMgr.comparePassword(user.password, dbUser.password, function (err, isPasswordMatch) {
 
                 if (isPasswordMatch) {
@@ -77,8 +77,5 @@ module.exports = function (server, db) {
 
         return next();
         }
-    });        
+    });
 };
-
-
-
