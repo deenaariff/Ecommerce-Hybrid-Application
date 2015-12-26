@@ -2,39 +2,22 @@ module.exports = function (server, db) {
 
   var validateRequest = require("../auth/validateRequest");
 
-  server.get("/api/v1/foodList/data/list", function (req, res, next) {
+  server.get('/api/v1/foodList/data/list', function (req, res) {
 
     // TODO: Re-add validation request post-testing
     //validateRequest.validate(req, res, db, function () {
-        db.collection('foodList').find(function(err,docs) {
-            var jsonStr = JSON.stringify(docs);
-            res.send(jsonStr);
-          })
-        /*
-
-        db.collection('foodList').find({
-          price: req.param.token
-        }, function (err, list) {
-          if (err) {
-            res.writeHead(403, {
-                'Content-Type': 'application/json; charset=utf-8'
-            });
-            res.end(JSON.stringify ({
-                error: "DB Error"
-            }));
-          }
-          res.writeHead(200,  {
-            'Content-Type': 'application/json; charset=utf-8'
+          db.collection('foodList').find(function(err,docs) {
+              var jsonStr = JSON.stringify(docs);
+              res.end(jsonStr);
+              if (err) {
+                res.writeHead(403, {
+                    'Content-Type': 'application/json; charset=utf-8'
+                });
+                res.end(JSON.stringify ({
+                    error: "DB Error"
+                }));
+              }
           });
-          res.end(JSON.stringify(list));
-        });
-
-      */
-
-    //});
-
-      return next();
-
   });
 
   server.get('/api/v1/foodList/data/item/:id', function (req, res, next) {
@@ -46,7 +29,7 @@ module.exports = function (server, db) {
             res.writeHead(200,  {
               'Content-Type': 'application/json; charset=utf-8'
             });
-            res.end(JSON.stringify(data));
+            res.end(err);
           });
       });
 
@@ -54,19 +37,21 @@ module.exports = function (server, db) {
 
   });
 
-  server.post('/api/v1/foodList/data/item', function (req, rest, next) {
+  server.post('/api/v1/foodList/data/item', function (req, res, next) {
 
     // TODO: Re-add validation request post-testing
-    // validateRequest.validate(req, res, db, function () {
-        var item = req.params;
-        db.foodList.save(item,
+    //validateRequest.validate(req, res, db, function () {
+        var item = req.body;
+        console.log(item);
+        db.collection('foodList').save(item,
           function (err, data) {
-            res.writeHead(200, {
-              'Content-Type': 'application/json; charset=utf-8'
-            });
-            res.end(JSON.stringify(data));
+              res.writeHead(200, {
+                'Content-Type': 'application/json; charset=utf-8'
+              });
+              res.end(JSON.stringify(data));
           });
-      });
+
+      //});
 
       return next();
 
@@ -105,9 +90,9 @@ module.exports = function (server, db) {
 
       return next();
 
-  });
+    });
 
-  server.del('/api/v1/foodList/data/item/:id', function (req, res, next) {
+  server.delete('/api/v1/foodList/data/item/:id', function (req, res, next) {
 
       validateRequest.validate(req, res, db, function () {
         db.foodList.remove({

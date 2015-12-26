@@ -17,6 +17,9 @@
   },
   "dependencies": {
     "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "mongodb": "^2.1.2",
     "mongojs": "^2.2.2",
     "morgan": "^1.6.1",
     "restify": "^4.0.3"
