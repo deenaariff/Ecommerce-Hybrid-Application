@@ -19,9 +19,12 @@ var multer = require('multer');
 
 var mongojs     =   require('mongojs');
 var morgan      =   require('morgan');
-var db          =   mongojs('startupxyz', ['users','foodLists']);
+var db =  mongojs('mongodb://daariff:startup@ds061454.mongolab.com:61454/appdatabase',['users','foodLists']);
 
 
+//var db          =   mongojs('startupxyz', ['users','foodLists']);
+
+//server.use(express.static(path.join(__dirname, 'test/test1'), { maxAge: 86400000 }));
 server.use(express.static('tests/test1'));
 //var manageUsers = require('./auth/manageUser')(server, db);
 var manageFood = require('./productAPIS/foodList')(server,db,ObjectID);
