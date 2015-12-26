@@ -2,7 +2,8 @@ var Controllers = angular.module('Controllers',[])
 
 Controllers.controller('MainCtrl', function($scope, $http) {
 
-    var base = "http://localhost:5000";
+    //var base = "http://localhost:5000";
+    var base = "https://testapplication-1.herokuapp.com";
 
     $scope.fields; // Used for updating form data for post
 
