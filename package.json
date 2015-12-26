@@ -16,7 +16,7 @@
     "node": "4.2.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "sh -c 'cd ./Dev/Server/ && node index.js'"
   },
   "dependencies": {
     "bcrypt": "^0.8.5",
