@@ -1,32 +1,34 @@
 
 // Dependencies
 var express = require('express');
-//var restify     =   require('restify');
-var mongojs     =   require('mongojs');
-var morgan      =   require('morgan');
-var db          =   mongojs('startupxyz', ['users','foodLists']);
-//var server      =   restify.createServer();
 var server = express();
-server.use(express.static('tests/test1'));
-//var manageUsers = require('./auth/manageUser')(server, db);
-var manageFood = require('./productAPIS/foodList')(server,db);
+
 var bodyParser = require('body-parser')
-//
-var path = require('path');
-
-
-// Restify Parsers
-// Interprets REST requests and parses
-//server.use(restify.acceptParser(server.acceptable));
-//server.use(restify.queryParser());
-//server.use(restify.bodyParser());
-//server.use(morgan('dev')); // LOGGER
 
 // parse application/x-www-form-urlencoded
-server.use(bodyParser.urlencoded({ extended: false }))
+server.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
 server.use(bodyParser.json())
+
+// Required variables
+var path = require('path');
+var mongodb = require("mongodb"),
+		ObjectID = mongodb.ObjectID
+var multer = require('multer');
+
+var mongojs     =   require('mongojs');
+var morgan      =   require('morgan');
+var db          =   mongojs('startupxyz', ['users','foodLists']);
+
+
+server.use(express.static('tests/test1'));
+//var manageUsers = require('./auth/manageUser')(server, db);
+var manageFood = require('./productAPIS/foodList')(server,db,ObjectID);
+
+
+
+
 
 server.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");

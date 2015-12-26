@@ -26,25 +26,20 @@ Controllers.controller('MainCtrl', function($scope, $http) {
 
     $scope.saveItem=function(){
        /* while compiling form , angular created this object*/
-       var objectData = JSON.stringify($scope.fields);
+       var objectData = $scope.fields;
        console.log(objectData);
        /* post to server*/
        $http({
             method: 'POST',
             url: base+'/api/v1/foodList/data/item',
-            params: {
-              token: objectData
-            },
+            data: objectData,
             headers: {
               'Content-Type': 'application/json; charset=utf-8'
             }
         }).success(function(res) {
-           if (objectData === res)
-              console.log("POST SUCCESFULL");
-           else
-              console.log("WARNING: Incorrect Data Saved");
-         }).error(function (err) {
-           console.log("ERROR: " + err.message);
+              $scope.getAll();
+        }).error(function (err) {
+           console.log("ERROR: " + err);
         });
 
     }
@@ -59,12 +54,16 @@ Controllers.controller('MainCtrl', function($scope, $http) {
         });
     }
 
-    $scope.deleteItem = function (id, price) {
-        return $http.delete(base+'/api/v1/foodList/data/item/' + id, {
+    $scope.deleteItem = function (id) {
+        $http.delete(base+'/api/v1/foodList/data/item/' + id, {
             method: 'DELETE',
             params: {
-                token: email
             }
+        }).success(function(res) {
+           console.log("succesful Deletion");
+           $scope.getAll();
+         }).error(function (err) {
+           console.log(err);
         });
     }
 

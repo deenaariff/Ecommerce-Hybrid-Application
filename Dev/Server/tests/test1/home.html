@@ -39,19 +39,22 @@
   <body ng-controller = "MainCtrl" ng-init="getAll('test')">
 
     <h1> TEST CASE 1 </h1>
-    <table ng-init="var i = 0">
+    <h2> View Data (GET) </h2>
+    <table>
       <tr>
         <td> # </td>
         <td> Item </td>
         <td> Price </td>
       </tr>
       </tr>
-      <tr ng-repeat="food in food" ="i++">
+      <tr ng-repeat="food in food">
         <td>{{ $index+1 }}</td>
         <td>{{ food.item }}</td>
         <td> ${{ food.price }} </td>
+        <td> <button ng-click = "deleteItem(food._id)"> Delete </button> </td>
       </tr>
     </table>
+    <h2> Add Data (POST) </h2>
     <form name="myForm">
       <input ng-model="fields.item"/>
       <input ng-model="fields.price"/>

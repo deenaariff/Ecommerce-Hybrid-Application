@@ -1,4 +1,6 @@
-module.exports = function (server, db) {
+module.exports = function (server, db, ObjectID) {
+
+  var ObjectId = ObjectID;
 
   var validateRequest = require("../auth/validateRequest");
 
@@ -37,23 +39,19 @@ module.exports = function (server, db) {
 
   });
 
-  server.post('/api/v1/foodList/data/item', function (req, res, next) {
+  server.post('/api/v1/foodList/data/item', function (req, res) {
 
     // TODO: Re-add validation request post-testing
     //validateRequest.validate(req, res, db, function () {
+        console.log(req.params);
         var item = req.body;
-        console.log(item);
+        console.log(req.body);
         db.collection('foodList').save(item,
           function (err, data) {
-              res.writeHead(200, {
-                'Content-Type': 'application/json; charset=utf-8'
-              });
               res.end(JSON.stringify(data));
           });
 
       //});
-
-      return next();
 
   });
 
@@ -92,21 +90,25 @@ module.exports = function (server, db) {
 
     });
 
-  server.delete('/api/v1/foodList/data/item/:id', function (req, res, next) {
+  server.delete('/api/v1/foodList/data/item/:id', function (req, res) {
 
-      validateRequest.validate(req, res, db, function () {
-        db.foodList.remove({
-          _id: db.ObjectID(req.params.id)
+      //validateRequest.validate(req, res, db, function () {
+        db.collection('foodList').remove({
+          _id: ObjectId(req.params.id)
         }, function (err, data) {
-          res.writeHead(200, {
-              'Content-Type': 'application/json; charset=utf-8'
-          });
-          res.end(JSON.stringify(data));
+              res.writeHead(200, {
+                  'Content-Type': 'application/json; charset=utf-8'
+              });
+              res.end(JSON.stringify(data));
+
+              if (err) {
+                res.writeHead(403, {
+                    'Content-Type': 'application/json; charset=utf-8'
+                });
+                res.end(JSON.stringify(err));
+            }
         });
-
-        return next();
-      });
-
+        //});
   });
 
 
