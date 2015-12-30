@@ -1,1 +1,44 @@
-/* Empty. Add your own CSS if you like */
+/* home.html */
+
+#login {
+    //width: 90%;
+    text-align: center;
+    padding-top: 35px;
+}
+
+#login label {
+    border-top: none;
+    width: 90%;
+    margin: 0 auto;
+    border-left: none;
+    border-right: none;
+}
+
+.container {
+    text-align: center;
+}
+
+.homeTitle {
+    font-family: Lato;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 235px;
+    font-style: italic;
+    color: whitesmoke;
+}
+
+#homeSubmit {
+    width: 260px;
+    margin-top: 35px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.home {
+    background-color: #81AEAC; /*#F3F5F8;*/
+}
+
+#gmailIcon {
+    float: left;
+    font-size: 22px !important;
+}

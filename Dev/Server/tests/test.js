@@ -6,7 +6,7 @@ var path = require("path");
 app.use(express.static(path.join(__dirname, '/test1/')));
 
 app.get('/',function(req,res){
-  res.sendFile(path.join(__dirname+'/test1/templates/index.html'));
+  res.sendFile(path.join(__dirname + '/test1/templates/index.html'));
   //__dirname : It will resolve to your project folder.
 });
 
