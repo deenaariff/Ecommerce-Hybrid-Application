@@ -78,7 +78,10 @@
     width: 49%;
 }
 
-.holderOne img {
+.holderOne {
+    display: block;
     width: 150px;
     height: 130px;
+    background: url('../img/Sample%20Two.jpg');
+    background-size: cover;
 }

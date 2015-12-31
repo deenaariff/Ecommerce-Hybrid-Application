@@ -1,6 +1,6 @@
 <ion-view view-title="Menu">
     <!-- Navbar stuff -->
-    <ion-nav-bar class="bar-stable"></ion-nav-bar>
+    <ion-nav-bar class="bar-positive"></ion-nav-bar>
     
     <!-- Content -->
     <ion-content class="padding">
@@ -8,7 +8,6 @@
             <div class="item item-divider">Today</div>
                 <a id="foodItem" ng-repeat="food in foodsToday" class="item" href="#">
                     <div class="holderOne">
-                        <img src='../img/ionic.png'>
                     </div>
                     <div class="holderTwo">
                         <h3 id="foodName">{{food.name}}</h3>
@@ -24,7 +23,6 @@
             <div class="item item-divider">Yesterday</div>
                 <a id="foodItem" ng-repeat="food in foodsYesterday" class="item" href="#">
                     <div class="holderOne">
-                        <img src='../img/ionic.png'>
                     </div>
                     <div class="holderTwo">
                         <h3 id="foodName">{{food.name}}</h3>
