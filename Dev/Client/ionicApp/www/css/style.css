@@ -42,3 +42,43 @@
     float: left;
     font-size: 22px !important;
 }
+
+/* MENU.HTML */
+
+.holderOne {
+    float: left;
+}
+
+.holderTwo {
+    float: right;
+}
+
+.holderTwo h4 {
+    color: dimgrey;
+    font-size: 10px;
+}
+
+.holderTwo p {
+    font-size: 10px;
+    max-width: 85%;
+}
+
+#foodItem .holderTwo #foodName {
+    float: left;
+    color: #376180;
+}
+
+#foodItem .holderTwo #foodPrice {
+    color: dimgrey;
+    float: right;
+}
+
+#foodItem .holderTwo {
+    display: block;
+    width: 49%;
+}
+
+.holderOne img {
+    width: 150px;
+    height: 130px;
+}

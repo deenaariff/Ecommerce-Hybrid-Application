@@ -46,36 +46,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'DashCtrl'
   })
 
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
+  .state('MENU', {
+      url: '/menu',
+      templateUrl: 'templates/menu.html',
+      controller: 'MenuCtrl'
   });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home');
+  // if none of the above states are matched, use this as default
+  $urlRouterProvider.otherwise('/menu');
 
 });
