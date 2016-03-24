@@ -1,17 +1,25 @@
-<ion-view>
+<ion-view view-title="Menu">
+    <!-- Navbar stuff
+    <ion-nav-bar class="bar-positive"></ion-nav-bar>
+-->
+    <!-- Content -->
     <ion-content class="home">
-        
-        <h2 class="homeTitle"><i>Get ready to UNIcate</i></h2>
-        
-        <div class="container">
-            <div class="list" id="login">
-              <a href="#/nice">
-                    <button ng-click="submit()" id="homeSubmit" class="button button-positive"><i id="gmailIcon" class="ion-social-facebook"></i>Login with Facebook</button>      
-              </a>
-              <a href="#/nice">
-                    <button ng-click="submit()" id="homeSubmit" class="button button-assertive"><i id="gmailIcon" class="ion-social-google-outline"></i> Login with Gmail</button>      
-              </a>    
-            </div>
+        <div class="list" ng-init="getFood()">
+            <div class="item padding item-divider">Today's Offerings</div>
+                <a id="foodItem" ng-repeat="food in foodsToday" class="item" href="#/purchase">
+                    <div class="holderOne">
+                      <img src="../img/bill.jpeg"></img>
+                    </div>
+                    <div class="holderTwo">
+                        <h2> Bill Gates made {{ food.item }}</h2>
+                        <img src="../img/Sample%20Two.jpg"></img>
+                    </div>
+                    <div>
+                        <h2 id="foodPrice">{{food.price | currency}}</h2>
+                        <h2 id="foodPrice">{{food.price | currency}}</h2>
+                    </div>
+                </a>
         </div>
     </ion-content>
-</ion-view>   
+
+</ion-view>

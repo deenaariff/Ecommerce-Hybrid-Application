@@ -1,43 +1,57 @@
-angular.module('starter.controllers', [])
+var app = angular.module('starter.controllers', []);
 
-.controller('MenuCtrl', function($scope, $stateParams) {
-    
-    $scope.foodsToday = [ { name: 'Fried Rice' , 
-                            price: '$9.00',
-                            description: 'Warm Chicken Fried Rice',
-                            chef: 'Bob Smith' , 
-                            rating: '5'} , 
-                         { name: 'Brownies' , 
-                          price: '$3.00' , 
-                          description: 'Warm 12 piece brownies',
-                          chef: 'Ronald McDonald',
-                          rating: '3'} , 
-                         { name : 'Cake' , 
-                          price: '$2.50',
-                          description: 'Six piece Vanilla Cake',
-                          chef: 'Jake Holding',
-                          rating: '4'} , 
-                        
-                        ];
-    
-    $scope.foodsYesterday = [ { name: 'Lasagna' , 
+app.controller('DashCtrl', function($scope, $http, $cordovaOauth) {
+
+  $scope.login = function() {
+    facebookLogin($cordovaOauth, $http);
+  }
+
+  function facebookLogin($cordovaOauth, $http) {
+        $cordovaOauth.facebook("119506955112274", ["email", "public_profile"], {redirect_uri: "http://localhost/callback"})
+          .then(function(result){
+              displayData($http, result.access_token);
+          },  function(error){
+                  alert("Error: " + error);
+        });
+  }
+
+  function displayData($http, access_token) {
+    $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name,gender,location,picture", format: "json" }})
+      .then(function(result) {
+          console.log(result.data.name);
+      }, function(error) {
+          alert("Error: " + error);
+    });
+  }
+
+});
+
+app.controller('MenuCtrl', function($scope, $stateParams, restAPI) {
+
+    $scope.foodsToday;
+
+    $scope.getFood = function() {
+      restAPI.getFood().success(function(result) {
+        $scope.foodsToday = result;
+        console.log(JSON.stringify($scope.foodsToday));
+      });
+    };
+
+    $scope.foodsYesterday = [ { name: 'Lasagna' ,
                             price: '$7.00',
                             description: 'Fresh Vegetarian Lasagna',
-                            chef: 'Alex Smith' , 
-                            rating: '2'} , 
-                         { name: 'Tacos' , 
-                          price: '$3.00' , 
+                            chef: 'Alex Smith' ,
+                            rating: '2'} ,
+                         { name: 'Tacos' ,
+                          price: '$3.00' ,
                           description: 'Four beef tacos with cheese',
                           chef: 'Tom Brady',
-                          rating: '5'} , 
-                         { name : 'Cake' , 
+                          rating: '5'} ,
+                         { name : 'Cake' ,
                           price: '$2.50',
                           description: 'Six slices of Chocolate Cake',
                           chef: 'Aaron Rodgers',
-                          rating: '5'} , 
-                        
-                        ];
-    
-    
-})
+                          rating: '5'} ,
 
+                        ];
+});

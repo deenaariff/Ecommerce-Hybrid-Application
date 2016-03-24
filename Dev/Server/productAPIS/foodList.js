@@ -10,11 +10,9 @@ module.exports = function (server, db, ObjectID) {
     //validateRequest.validate(req, res, db, function () {
           db.collection('foodList').find(function(err,docs) {
               var jsonStr = JSON.stringify(docs);
+              console.log("Request Received");
               res.end(jsonStr);
               if (err) {
-                res.writeHead(403, {
-                    'Content-Type': 'application/json; charset=utf-8'
-                });
                 res.end(JSON.stringify ({
                     error: "DB Error"
                 }));
@@ -28,10 +26,7 @@ module.exports = function (server, db, ObjectID) {
           db.foodList.find ({
             _id: db.ObjectID(req.param.id)
           }, function (err, data) {
-            res.writeHead(200,  {
-              'Content-Type': 'application/json; charset=utf-8'
-            });
-            res.end(err);
+            res.end(data);
           });
       });
 
@@ -78,9 +73,6 @@ module.exports = function (server, db, ObjectID) {
           }, updProd, {
             multi: false
           }, function (err, data) {
-            res.writeHead(200, {
-              'Content-Type': 'application/json; charset=utf-8'
-            });
             res.end(JSON.stringify(data));
           });
         });
@@ -96,9 +88,6 @@ module.exports = function (server, db, ObjectID) {
         db.collection('foodList').remove({
           _id: ObjectId(req.params.id)
         }, function (err, data) {
-              res.writeHead(200, {
-                  'Content-Type': 'application/json; charset=utf-8'
-              });
               res.end(JSON.stringify(data));
 
               if (err) {

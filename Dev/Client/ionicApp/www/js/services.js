@@ -1,8 +1,10 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('restAPI', function($http) {
   // Might use a resource here that returns a JSON array
 
+  var base = "http://localhost:5000"
+  
   // Some fake testing data
   var chats = [{
     id: 0,
@@ -37,6 +39,13 @@ angular.module('starter.services', [])
     },
     remove: function(chat) {
       chats.splice(chats.indexOf(chat), 1);
+    },
+    getFood: function () {
+      return $http.get(base+'/api/v1/foodList/data/list')
+        .success(function(response) {
+          return response;
+        }).error(function (err) {
+      });
     },
     get: function(chatId) {
       for (var i = 0; i < chats.length; i++) {

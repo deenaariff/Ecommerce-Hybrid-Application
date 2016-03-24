@@ -1,4 +1,13 @@
-/* home.html */
+/* tabs */
+
+.tabs-positive .tabs {
+background-color: #F56F6C !important;
+opacity: 0.95;
+border: none !important;
+outline: none !important;
+}
+
+/* SIGNIN.html */
 
 #login {
     //width: 90%;
@@ -35,7 +44,7 @@
 }
 
 .home {
-    background-color: #81AEAC; /*#F3F5F8;*/
+    background-color: #fff; /*#F3F5F8;*/
 }
 
 #gmailIcon {
@@ -43,19 +52,107 @@
     font-size: 22px !important;
 }
 
-/* MENU.HTML */
+/* PURCHASE.html */
+
+.purchase .chef_info {
+  height: 50%;
+  background: #F56F6C;
+}
+
+.purchase .chef_info img {
+  border-radius: 50%;
+  width: 30%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.purchase .user_interaction {
+
+}
+
+
+/* HOME.HTML */
+
+.home a {
+  margin: auto;
+  width: auto;
+  margin: 2vh;
+  height: auto;;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  border: none;
+  background: #F8F8F8;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+       -moz-box-shadow: 0 8px 6px -6px #999;
+            box-shadow: 0 8px 6px -6px #999;
+}
+
+.home .item-divider {
+  height: 12vh;
+  text-align: center;
+  background: #252932;
+  font-size: 3vh;
+  color: #fff;
+}
+
+.ion-nav-view {
+  background: #000 !important;
+}
+
+.list .custom-item-divider .item-divider {
+  background-color: #000 !important;
+  color: white;
+}
+.list .custom-item-divider .item.activated {
+  background-color: #336688 !important;
+  opacity: 0.8;
+}
 
 .holderOne {
-    float: left;
+    display: inline-block;
+    min-width: 40%;
+    max-width: 40%;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-size: 100%;
+}
+
+.holderOne img {
+    border-radius: 50%;
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.holderTwo img {
+    width: 80%;
+    margin: 2vh;
+    border-radius: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.holderOne h3 {
+  background: #F56F6C;
+  min-width: 60%;
+  max-width: 60%;
+  text-align: center;
+  color: #fff;
 }
 
 .holderTwo {
-    float: right;
+    display: inline-block;
+    word-wrap: normal !important;
+    color: #000;
+    width: 60%;
 }
 
-.holderTwo h4 {
-    color: dimgrey;
-    font-size: 10px;
+.holderTwo h3 {
+    margin-left: 10%;
+    color: #000;
 }
 
 .holderTwo p {
@@ -63,25 +160,4 @@
     max-width: 85%;
 }
 
-#foodItem .holderTwo #foodName {
-    float: left;
-    color: #376180;
-}
-
-#foodItem .holderTwo #foodPrice {
-    color: dimgrey;
-    float: right;
-}
-
-#foodItem .holderTwo {
-    display: block;
-    width: 49%;
-}
-
-.holderOne {
-    display: block;
-    width: 150px;
-    height: 130px;
-    background: url('../img/Sample%20Two.jpg');
-    background-size: cover;
-}
+.

@@ -2,10 +2,10 @@ var Controllers = angular.module('Controllers',[])
 
 Controllers.controller('MainCtrl', function($scope, $http) {
 
-    //var base = "http://localhost:5000";
-    var base = "https://testapplication-1.herokuapp.com";
+    var base = "http://localhost:5000";
 
     $scope.fields; // Used for updating form data for post
+    $scope.food;
 
     $scope.getAll = function (name) {
         $http.get(base+'/api/v1/foodList/data/list').success(function(response) {
@@ -13,7 +13,7 @@ Controllers.controller('MainCtrl', function($scope, $http) {
           $scope.food = response;
         }).error(function (err) {
           console.log(err);
-       });
+        });
     }
 
     $scope.getItem = function (id, price) {
@@ -25,7 +25,7 @@ Controllers.controller('MainCtrl', function($scope, $http) {
         });
     }
 
-    $scope.saveItem=function(){
+    $scope.saveItem=function() {
        /* while compiling form , angular created this object*/
        var objectData = $scope.fields;
        console.log(objectData);
@@ -47,7 +47,7 @@ Controllers.controller('MainCtrl', function($scope, $http) {
 
 
     $scope.putItem = function (id, form, price) {
-        return $http.put(base+'/api/v1/foodList/data/item/' + id, form, {
+        return $http.put(base+'/newRequest', form, {
             method: 'PUT',
             params: {
                 token: email

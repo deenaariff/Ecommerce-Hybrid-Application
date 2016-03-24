@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -40,19 +40,44 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
 
-  .state('HOME', {
-    url: '/home',
-    templateUrl: 'templates/home.html',
+  .state('SIGNIN', {
+    url: '/signin',
+    templateUrl: 'templates/signin.html',
     controller: 'DashCtrl'
   })
 
-  .state('MENU', {
-      url: '/menu',
-      templateUrl: 'templates/menu.html',
+  .state('HOME', {
+      url: '/home',
+      templateUrl: 'templates/home.html',
+      controller: 'MenuCtrl'
+  })
+
+  .state('BUYER', {
+      url: '/buyer',
+      templateUrl: 'templates/buyer.html',
+      controller: 'MenuCtrl'
+  })
+
+  .state('PURCHASE', {
+      url: '/purchase',
+      templateUrl: 'templates/purchase.html',
+      controller: 'MenuCtrl'
+  })
+
+  .state('SELLER', {
+      url: '/seller',
+      templateUrl: 'templates/seller.html',
+      controller: 'MenuCtrl'
+  })
+
+  .state('SETTINGS', {
+      url: '/settings',
+      templateUrl: 'templates/settings.html',
       controller: 'MenuCtrl'
   });
 
+
   // if none of the above states are matched, use this as default
-  $urlRouterProvider.otherwise('/menu');
+  $urlRouterProvider.otherwise('/signin');
 
 });
