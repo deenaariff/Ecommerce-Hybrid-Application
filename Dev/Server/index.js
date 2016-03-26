@@ -1,46 +1,60 @@
+// Author: Deen Aariff
+// Date: Tues March 22, 2016
+// Description: Main Server
+// Dependendencies: Express, Cors, Body-Parser, MongoDB, Multer, MongoJs, Morgan
 
-// Dependencies
 var express = require('express');
-var cors = require('cors');
 var server = express();
 
-var bodyParser = require('body-parser')
+// Server Dependencies
+var dep = {
+	path: require('path'),
+	cors: require('cors'),
+	bodyParser: require('body-parser'),
+	mongodb: require("mongodb"),
+	multer: require('multer'),
+	mongojs: require('mongojs'),
+	morgan: require('morgan'),
+	config: require('./config')
+}
 
-// parse application/x-www-form-urlencoded
-server.use(bodyParser.urlencoded({ extended: true }))
-// parse application/json
-server.use(bodyParser.json())
-server.use(cors());
+// Database Instantiation with MongoJs
+var db = dep.mongojs(dep.config.db.url,dep.config.db.collections)
 
-// Required variables
-var path = require('path');
-var mongodb = require("mongodb"),
-		ObjectID = mongodb.ObjectID
-var multer = require('multer');
+// Server Configuration
+function configureServer () {
+	server.use(dep.bodyParser.urlencoded({ extended: true }))
+	server.use(dep.bodyParser.json())
+	server.use(dep.cors());
+};
 
-var mongojs     =   require('mongojs');
-var morgan      =   require('morgan');
-var db =  mongojs('mongodb://daariff:startup@ds061454.mongolab.com:61454/appdatabase',['users','foodLists']);
+// Callback Functions to Handle API Requests
+var handlers = {
+	food: require('./Handlers/foodHandler'),
+	users: require('./Handlers/userHandler')
+}
 
-server.use(express.static('tests/test1'));
-//var manageUsers = require('./auth/manageUser')(server, db);
-var manageFood = require('./productAPIS/foodList')(server,db,ObjectID);
+// Contains API Requests for Food and Users
+var routes = require('./Routes/routes');
 
-/*server.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});*/
+// Initialize API's
+function initAPIS() {
+	routes.init(server,handlers);
+	handlers.food.init(db, dep.mongodb.ObjectId);
+	handlers.users.init(db, dep.mongodb.ObjectId);
+	routes.foodSetup();
+	routes.userSetup();
+}
 
-/* ----------------- SERVE TEST TEMPLATES -------------------- */
+// Server Start Function
+function start () {
+	console.log("Running Server Configurations...")
+	configureServer();
+	console.log("Initializing API'...")
+	initAPIS();
+	var port = process.env.PORT || dep.config.port;
+	server.listen(port);
+  console.log("Server listening on port %d", port);
+}
 
-server.get('/', function (req, res) {
-	res.sendFile(path.join(__dirname+'/tests/test1/home.html'));
-});
-
-/*------------------------------------------------------------- */
-
-server.listen(process.env.PORT || 5000, function () {
-    console.log("Server started @ ", process.env.PORT || 5000);
-});
+start();
