@@ -5,26 +5,83 @@ var mongoose = require('mongoose');
 var winston = require('winston');
 var config = require('./config');
 
-describe('API Tests', function() {
+describe('Restful API Testing', function() {
   var url = config.base;
   before(function(done) {
     mongoose.connect(config.db.url);
     done();
   });
 
-  describe('UserAPI', function() {
+  describe('Transaction Restful API', function() {
 
-    it('01.01: Should Add User and Return Full User Object', function(done) {
-      var user = {
-          "id": "test.id",
-          "fname": "TestFirstName",
-          "lname": "TestLastName",
-          "picture": "TestPicture",
-          "email": "TestEmail@test.com",
-      };
+    var testTransaction  = {
+      "item": "spaghetti",
+      "price": "5"
+    };
+
+    it('01.01: Should Return All Transactions', function(done) {
       request(url)
-        .post('/api/v1/users/signIn')
-        .send(user)
+        .get('/api/v1/transactions/')
+    	  .end(function(err, res) {
+          if (err) {
+            throw err;
+          }
+          res.status.should.be.equal(200);
+          done();
+        });
+    });
+    it('01.02: Create Transaction', function(done) {
+      var id = "";
+      request(url)
+        .post('/api/v1/transactions/addItem')
+        .send(JSON.stringify(testTransaction))
+    	  .end(function(err, res) {
+          if (err) {
+            throw err;
+          }
+          testTransaction = res;
+          res.status.should.be.equal(201);
+          done();
+        });
+    });
+    it('01.03: Return Transaction by ID', function(done) {
+      request(url)
+        .get('/api/v1/transactions/' + testTransaction.id.$oid)
+    	  .end(function(err, res) {
+          if (err) {
+            throw err;
+          }
+          res.status.should.be.equal(200);
+          done();
+        });
+    });
+    it('01.04: Delete Transaction By Id', function(done) {
+      request(url)
+        .delete('/api/v1/transactions/delete/' + + testTransaction.id.$oid)
+    	  .end(function(err, res) {
+          if (err) {
+            throw err;
+          }
+          res.status.should.be.equal(200);
+          done();
+        });
+    });
+  });
+
+  describe('User Restful API', function() {
+
+    var testUser = {
+        "id": "test.id",
+        "fname": "TestFirstName",
+        "lname": "TestLastName",
+        "picture": "TestPicture",
+        "email": "TestEmail@test.com",
+    };
+
+    it('02.01: Should Add User and Return Full User Object', function(done) {
+      request(url)
+        .post('/api/v1/users/addUser')
+        .send(testUser)
     	  .end(function(err, res) {
           if (err) {
             throw err;
@@ -33,32 +90,7 @@ describe('API Tests', function() {
           done();
         });
     });
-
-    /*
-    it('should correctly update an existing account', function(done){
-
-    	var body = {
-    		firstName: 'JP',
-    		lastName: 'Berd'
-    	};
-
-    	request(url)
-    		.put('/api/profiles/vgheri')
-    		.send(body)
-    		.expect('Content-Type', /json/)
-    		.expect(200) //Status code
-    		.end(function(err,res) {
-    			if (err) {
-    				throw err;
-    			}
-    			// Should.js fluent syntax applied
-    			res.body.should.have.property('_id');
-                res.body.firstName.should.equal('JP');
-                res.body.lastName.should.equal('Berd');
-                res.body.creationDate.should.not.equal(null);
-    			done();
-    		});
-    });
-    */
   });
+
+
 });

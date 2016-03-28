@@ -5,7 +5,7 @@
 
 exports.db = {
    url: "mongodb://daariff:startup@ds061454.mongolab.com:61454/appdatabase",
-   collections: ['users','foodLists']
+   collections: ['users','transactionsList']
 }
 exports.port = 5000;
 exports.base = "http://localhost:" + exports.port;
