@@ -8,43 +8,20 @@
         
         <div class="list" ng-init="getFood()">
                 <a id="foodItem" ng-repeat="food in foodsYesterday" class="item" href="#/purchase">
-                    <div class="holders" >
-                        <!--
-                        <div class="topHolder">
-                            <div class="topLeft">
-                                 <div class="chefPhoto">
-                                
-                                </div> 
-                                
-                            </div>
-                            <div class="topRight">
-                                <h5>Chef: {{food.chef}}</h5> <br />
-                                <h5>Food: {{food.name}}</h5>
-                            </div>
-                        </div>
-                        
-                        <div class="bottomHolder">
-                            <div class="bottomLeft">
-                                bottomLeft <br /> <br /><br /><br /><br /><br />
-                            </div>
-                            <div class="bottomRight">
-                                <img src="../img/Sample%20Two.jpg">
-                            </div>
-                        </div>
-                        -->
+                    <div class="holderOne">
+                        <img src='../img/ionic.png'>
                     </div>
-                    <div class="left">
+                    <div class="holderTwo">
+                        <h3 id="foodName">Chinese Food</h3>
+                        <h3 id="foodPrice">{{food.price}}</h3>
+                         <br /> <br />
+                        <h4>Description:</h4>
+                        <p>{{food.description}}</p>
+                        <h4>Chef:</h4>
+                        <p>{{food.chef}}</p>
                         <div class="chefPhoto"></div>
-                        <h5>{{food.chef}}</h5>
                     </div>
-                    <div class="middle">
-                        <h5>{{food.name}}</h5>
-                        <h5 class="description">{{food.description}}</h5>
-                    </div>
-                    <div class="right">
-                        <h5>{{food.price}}</h5>
-                        <div class="bottomRight"></div>
-                    </div>
+                    <br />
                 </a>
         </div>
     </ion-content>
