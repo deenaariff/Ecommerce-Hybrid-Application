@@ -7,7 +7,6 @@ var config = require('./config');
 
 describe('API Tests', function() {
   var url = config.base;
-  /
   before(function(done) {
     mongoose.connect(config.db.url);
     done();
@@ -15,7 +14,7 @@ describe('API Tests', function() {
 
   describe('UserAPI', function() {
 
-    it('Should Add User and Return Full User Object', function(done) {
+    it('01.01: Should Add User and Return Full User Object', function(done) {
       var user = {
           "id": "test.id",
           "fname": "TestFirstName",
@@ -25,17 +24,17 @@ describe('API Tests', function() {
       };
       request(url)
         .post('/api/v1/users/signIn')
-        .send(user);
-        // end handles the response
+        .send(user)
     	  .end(function(err, res) {
           if (err) {
             throw err;
           }
-          res.should.have.status(400);
+          res.status.should.be.equal(201);
           done();
         });
     });
 
+    /*
     it('should correctly update an existing account', function(done){
 
     	var body = {
@@ -60,5 +59,6 @@ describe('API Tests', function() {
     			done();
     		});
     });
+    */
   });
 });

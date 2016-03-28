@@ -8,4 +8,4 @@ exports.db = {
    collections: ['users','foodLists']
 }
 exports.port = 5000;
-exports.base = "http://localhost:/" + exports.port;
+exports.base = "http://localhost:" + exports.port;

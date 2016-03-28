@@ -18,7 +18,7 @@ USER API FUNCTIONALITY
 
 var _db;
 var _ObjectID;
-var _dbmodules = require('../other_modules/db_components')(_db);
+var _dbmodules = require('../other_modules/db_components')
 
 exports.init = function (db, ObjectID) {
   _db = db;
@@ -29,13 +29,22 @@ exports.init = function (db, ObjectID) {
 exports.addUser = function (req, res) {
     console.log("Add User Request Made (Post)");
     _db.users.find({
-      "email": _db._ObjectID(req.param.email)
+      "email": req.param.email
     }, function(err,user) {
-        if (user) {
-          if (err) { res.end(JSON.stringify ({error: "_db Error"}));}
-          res.end(JSON.stringify(user));
+        if (err)
+          res.status(503).end("Internal Database Error")
+        if (user.size === 0) {
+          res.status(200).end("User Already Present in Database");
         } else {
-          res.end(_dbmodules.createUser(req.param)); // creates user and adds to databse
+          var user = _dbmodules.createUser(req.param);
+          _db.users.save(user, function (err, dbUser) {
+            if (err) {
+                if (err.code == 11000)
+                    res.status(503).end("Internal Database Error")
+            } else {
+              res.status(201).end(JSON.stringify(user));
+            }
+          });
         }
     });
 }
@@ -43,8 +52,12 @@ exports.addUser = function (req, res) {
 /* Add to Requested Purchases */
 exports.addReqPurchase = function (req,res) {
     _db.users.update({email: req.body.email}, {
-      $push: {requested_purchases: req.body.fid}}, {multi: true}, function () {
-      res.end(req.body.fid);
+      $push: {requested_purchases: req.body.fid}}, {multi: true},
+      function (err, res) {
+        if (err)
+          res.status(503).end("Internal Database Error")
+        else
+          res.status(201).end(req.body.fid);
     })
 };
 
@@ -60,7 +73,7 @@ exports.addPendPurchase = function (req,res) {
 
 /* Delete from Intermediate Purchases */
 exports.delPendPurchase = function (req, res) {
-  _db.users.remove({email: req.body.email}, {
+  _db.users.update({email: req.body.email}, {
     $push: {pending_purchases: req.body.fid}}, {multi: true}, function () {
       // Remove from requested_purchases
       // Update Food Quantity

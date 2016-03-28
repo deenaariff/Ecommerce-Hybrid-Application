@@ -3,11 +3,8 @@
 // Description: Helper Functions for Various Modules
 // Dependendencies: N/A
 
-module.exports = function (db) {
-
-  // function to create new user object
-  var createUser = function (param, callback) {
-    var user = {
+exports.createUser = function (param) {
+    return {
         "id": param.id,
         "fname": param.fname,
         "lname": param.lname,
@@ -20,17 +17,5 @@ module.exports = function (db) {
         "completed_purchases": [],
         "pending_sales": [],
         "completed_sales" : []
-    }
-    db.users.insert(user, function (err, dbUser) {
-      if (err) {
-          if (err.code == 11000)
-              res.writeHead(400,{
-                  'Content-Type': 'application/json; charset=utf-8'
-              });
-      } else {
-          return(JSON.stringify(user));
-      }
-    });
-  }
-
-}
+    };
+};
