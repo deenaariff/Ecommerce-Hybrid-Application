@@ -3,7 +3,7 @@ angular.module('starter.services', [])
 .factory('restAPI', function($http) {
   // Might use a resource here that returns a JSON array
 
-  var base = "http://localhost:5000"
+  var base = "http://fe374f0d.ngrok.io"
   
   // Some fake testing data
   var chats = [{
