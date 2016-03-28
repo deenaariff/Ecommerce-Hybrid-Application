@@ -17,66 +17,33 @@ USER API FUNCTIONALITY
 *******************************************************/
 
 var _db;
-var _ObjectID;
 var _dbmodules = require('../other_modules/db_components')
 
 exports.init = function (db, ObjectID) {
   _db = db;
-  _ObjectID = ObjectID;
 }
 
 /* Add New User*/
 exports.addUser = function (req, res) {
-    console.log("Add User Request Made (Post)");
+    console.log("Add User Request Initiated (Post)");
     _db.users.find({
       "email": req.param.email
     }, function(err,user) {
         if (err)
-          res.status(503).end("Internal Database Error")
-        if (user.size === 0) {
-          res.status(200).end("User Already Present in Database");
+          console.log(err);
+          if(res) res.status(503).end(JSON.stringify(err))
+        if (user.size != 0) {
+          if(res) res.status(200).end("User Already Present in Database");
         } else {
-          var user = _dbmodules.createUser(req.param);
-          _db.users.save(user, function (err, dbUser) {
+          var user;
+          _dbmodules.createUser(req.param, user, _db.users.save(user, function (err, user) {
             if (err) {
-                if (err.code == 11000)
-                    res.status(503).end("Internal Database Error")
+              console.log(err);
+              if(res) res.status(503).end(JSON.stringify(err))
             } else {
-              res.status(201).end(JSON.stringify(user));
+              if(res) res.status(201).end(JSON.stringify(user));
             }
-          });
+          }));
         }
     });
 }
-
-/* Add to Requested Purchases */
-exports.addReqPurchase = function (req,res) {
-    _db.users.update({email: req.body.email}, {
-      $push: {requested_purchases: req.body.fid}}, {multi: true},
-      function (err, res) {
-        if (err)
-          res.status(503).end("Internal Database Error")
-        else
-          res.status(201).end(req.body.fid);
-    })
-};
-
-/* Add to Intermediate Purchases */
-exports.addPendPurchase = function (req,res) {
-  _db.users.update({email: req.body.email}, {
-    $push: {pending_purchases: req.body.fid}}, {multi: true}, function () {
-      // Remove from requested_purchases
-      // Update Food Quantity
-    res.end(req.body.fid);
-  })
-};
-
-/* Delete from Intermediate Purchases */
-exports.delPendPurchase = function (req, res) {
-  _db.users.update({email: req.body.email}, {
-    $push: {pending_purchases: req.body.fid}}, {multi: true}, function () {
-      // Remove from requested_purchases
-      // Update Food Quantity
-    res.end(req.body.fid);
-  })
-};

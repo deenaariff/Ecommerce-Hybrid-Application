@@ -3,12 +3,15 @@
 // Description: Routes All Rest APIS for server
 // Dependendencies: App, Handlers (food,users)
 
+init = false;
 var _app;
 var _handlers;
+var _ObjectId;
 
 exports.init = function (app, handlers) {
   _app = app;
   _handlers = handlers;
+  init = true;
 }
 
 exports.foodSetup = function foodSetup () {
@@ -21,7 +24,11 @@ exports.foodSetup = function foodSetup () {
 
 exports.userSetup = function userSetup () {
   _app.post('/api/v1/users/signIn', _handlers.users.addUser);
-    _app.post('/api/v1/users/addRequested/:fid', _handlers.users.addReqPurchase);
-    _app.put('/api/v1/users/addPending/:fid', _handlers.users.addPendPurchase);
-    _app.delete('/api/v1/users/deletePending/:fid', _handlers.users.delPendPurchase);
+}
+
+exports.buyerSetup = function () {
+  _app.put('/api/v1/buyers/addRequest', _handlers.buyer.addRequest);
+    _app.put('/api/v1/buyers/addPending',_handlers.buyer.addPending);
+    _app.put('/api/v1/buyers/removePending',_handlers.buyer.removePending);
+    _app.put('/api/v1/buyers/completeTransaction',_handlers.buyer.completeTransaction);
 }

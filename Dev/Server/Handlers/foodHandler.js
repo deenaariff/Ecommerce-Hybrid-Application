@@ -3,6 +3,7 @@
 // Description: Food API Callback Functions
 // Dependendencies: /auth/validateREquest
 
+var init = false;
 var validateRequest = require("../auth/validateRequest");
 var _db;
 var _ObjectId;
@@ -10,6 +11,7 @@ var _ObjectId;
 exports.init = function (db, ObjectId) {
   _db = db;
   _ObjectId = ObjectId;
+  init = true;
 }
 
 exports.getAllFood = function (req, res) {
@@ -28,7 +30,7 @@ exports.getAllFood = function (req, res) {
 exports.getFoodItem = function (req, res, next) {
   //validateRequest.validate(req, res, db, function () {
       _db.collection('foodList').findOne ({
-        _id: _db._ObjectId(req.param.id)
+        _id: _ObjectId(req.param.id)
       }, function (err, data) {
         res.end(data);
       });
@@ -85,3 +87,6 @@ exports.deleteFoodItem = function (req, res) {
         }
     });
 };
+
+exports.updateQuantity = function (req, res) {
+}

@@ -31,7 +31,8 @@ function configureServer () {
 // Callback Functions to Handle API Requests
 var handlers = {
 	food: require('./Handlers/foodHandler'),
-	users: require('./Handlers/userHandler')
+	users: require('./Handlers/userHandler'),
+	buyer: require('./Handlers/buyerHandler')
 }
 
 // Contains API Requests for Food and Users
@@ -42,8 +43,10 @@ function initAPIS() {
 	routes.init(server,handlers);
 	handlers.food.init(db, dep.mongodb.ObjectId);
 	handlers.users.init(db, dep.mongodb.ObjectId);
+	handlers.buyer.init(db, dep.mongodb.ObjectId);
 	routes.foodSetup();
 	routes.userSetup();
+	routes.buyerSetup();
 }
 
 // Server Start Function
