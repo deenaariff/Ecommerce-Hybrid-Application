@@ -4,7 +4,7 @@ angular.module('starter.services', [])
   // Might use a resource here that returns a JSON array
 
   var base = "http://fe374f0d.ngrok.io"
-  
+
   // Some fake testing data
   var chats = [{
     id: 0,
@@ -41,7 +41,7 @@ angular.module('starter.services', [])
       chats.splice(chats.indexOf(chat), 1);
     },
     getFood: function () {
-      return $http.get(base+'/api/v1/foodList/data/list')
+      return $http.get(base+'/api/v1/transactions/')
         .success(function(response) {
           return response;
         }).error(function (err) {

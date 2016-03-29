@@ -196,3 +196,24 @@ outline: none !important;
     display: inline-block;
 }
 
+
+/* MEDIA QUERIES */
+
+/* HOME.HTML */
+
+@media (max-width: 350px ) {
+    .holderTwo {
+        width: 48%;
+    }
+    
+    .holderOne img {
+        width: 120px;
+        height: 110px;
+    }
+}
+    
+
+
+
+
+
