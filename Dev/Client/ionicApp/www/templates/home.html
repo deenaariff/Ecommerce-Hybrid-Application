@@ -9,17 +9,19 @@
         <div class="list" ng-init="getFood()">
                 <a id="foodItem" ng-repeat="food in foodsYesterday" class="item" href="#/purchase">
                     <div class="holderOne">
-                        <img src='../img/ionic.png'>
+                        <img src='img/Sample%20Two.jpg'>
                     </div>
                     <div class="holderTwo">
-                        <h3 id="foodName">Chinese Food</h3>
+                        <h3 id="foodName">{{food.name}}</h3>
                         <h3 id="foodPrice">{{food.price}}</h3>
                          <br /> <br />
                         <h4>Description:</h4>
                         <p>{{food.description}}</p>
                         <h4>Chef:</h4>
                         <p>{{food.chef}}</p>
-                        <div class="chefPhoto"></div>
+                        <div class="chefPhoto">
+                            <img src="img/bill.jpeg">
+                        </div>
                     </div>
                     <br />
                 </a>

@@ -55,28 +55,56 @@ outline: none !important;
 /* PURCHASE.html */
 
 .purchase .chef_info {
-  height: 50%;
-  background: #19A991;
+  height: 40%;
+  //background: url( ../img/Sample%20Two.jpg);
+  background-size: cover;
+  //opacity: 0.92;
 }
 
-.purchase .chef_info img {
-  border-radius: 50%;
-  width: 30%;
+.chef_info img {
+    height: 100%;
+    width: 100%;
+    z-index: -5;
+}
+
+/*.purchase .chef_info img {
+  //border-radius: 50%;
+  width: 100px;
+  height: 100px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 90px;
+}*/
+
+.chef_picture {
+    text-align: center;
+    z-index: 100;
+    opacity: 1;
+}
+
+.chef_picture img {
+    width: 110px;
+    height: 110px;
+    border-radius: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -100px;
+    //z-index: 100;
 }
 
 .purchase .user_interaction {
-
+    background-color: red;
 }
 
-.chef_info h3 {
+.chef_name {
     font-family: Lato;
     text-align: center;
-    color: whitesmoke;
-    font-weight: 100;
-    padding-top: 150px;
+    color: black;
+    font-weight: lighter;
+    //padding-top: -50px;
+    z-index: 100;
+    margin-top: -5px;
 }
 
 
@@ -155,9 +183,9 @@ outline: none !important;
     height: 130px;
 }
 
-.chefPhoto {
-    background: url( ../img/bill.jpeg);
-    background-size: cover;
+.chefPhoto img {
+    //background: url( ../img/bill.jpeg);
+    //background-size: cover;
     width: 35px;
     height: 35px;
     border-radius: 40px;
