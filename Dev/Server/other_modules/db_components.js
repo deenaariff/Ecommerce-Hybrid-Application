@@ -4,22 +4,19 @@
 // Dependendencies: N/A
 
 
-exports.createFood = function (param) {
+exports.createTransaction = function (param) {
   return new Promise(function(resolve, reject) {
     resolve({
-          "fname": param.fname,
-          "lname": param.lname,
+          "transaction": param.transaction,
+          "price": param.price,
           "picture": param.picture,
-          "email": param.email,
-          "s_stars": 0,
-          "reviews": [],
-          "requested_purchases": [],
-          "pending_purchases": [],
-          "completed_purchases": [],
-          "pending_sales": [],
-          "completed_sales" : []
+          "quantity":  param.quantity,
+          "seller": {
+            "fname": "",
+            "lname": ""
+          }
     });
-  }
+  });
 };
 
 exports.createUser = function (param, user) {
@@ -37,5 +34,5 @@ exports.createUser = function (param, user) {
           "pending_sales": [],
           "completed_sales" : []
     });
-  }
+  });
 };

@@ -15,8 +15,14 @@ describe('Restful API Testing', function() {
   describe('Transaction Restful API', function() {
 
     var testTransaction  = {
-      "item": "spaghetti",
-      "price": "5"
+      "transaction": "test_sTransaction",
+      "price": "test_price",
+      "picture": "test_picture",
+      "quantity":  "test_quantity",
+      "seller": {
+        "fname": "test_fname",
+        "lname": "test_lname"
+      }
     };
 
     it('01.01: Should Return All Transactions', function(done) {
@@ -75,10 +81,10 @@ describe('Restful API Testing', function() {
         "fname": "TestFirstName",
         "lname": "TestLastName",
         "picture": "TestPicture",
-        "email": "TestEmail@test.com",
+        "email": "TestEmail@test.com"
     };
 
-    it('02.01: Should Add User and Return Full User Object', function(done) {
+    it('02.01: Should Add User from TestUser Data', function(done) {
       request(url)
         .post('/api/v1/users/addUser')
         .send(testUser)
@@ -87,6 +93,18 @@ describe('Restful API Testing', function() {
             throw err;
           }
           res.status.should.be.equal(201);
+          done();
+        });
+    });
+    it('02.02: Should Delete TestUser from DB', function(done) {
+      request(url)
+        .delete('/api/v1/users/deleteUser')
+        .send(testUser.email)
+    	  .end(function(err, res) {
+          if (err) {
+            throw err;
+          }
+          res.status.should.be.equal(400);
           done();
         });
     });

@@ -16,14 +16,16 @@ exports.init = function (app, handlers) {
 
 exports.transactionsSetup = function transactionsSetup () {
   _app.get('/api/v1/transactions/', _handlers.transactions.getAllTransactions);
-   _app.post('/api/v1/transactions/addItem', _handlers.transactions.addTransactionsItem);
-	 _app.get('/api/v1/transactions/:id', _handlers.transactions.getTransactionsItem);
-	 _app.put('/api/v1/transactions/update/:id', _handlers.transactions.updateTransactionsItem);
-   _app.delete('/api/v1/transactions/delete/:id', _handlers.transactions.deleteTransactionsItem);
+   _app.post('/api/v1/transactions/addItem', _handlers.transactions.addTransaction);
+	 _app.get('/api/v1/transactions/:id', _handlers.transactions.getTransaction);
+	 _app.put('/api/v1/transactions/update/:id', _handlers.transactions.updateTransactions);
+   _app.put('/api/v1/transactions/update/quantity/:id/:num', _handlers.transactions.updateQuantity);
+   _app.delete('/api/v1/transactions/delete/:id', _handlers.transactions.deleteTransaction);
 }
 
 exports.userSetup = function userSetup () {
   _app.post('/api/v1/users/addUser', _handlers.users.addUser);
+    _app.delete('/api/v1/users/deleteUser', _handlers.users.deleteUser);
 }
 
 exports.buyerSetup = function buyerSetup () {

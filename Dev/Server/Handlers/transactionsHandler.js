@@ -5,6 +5,7 @@
 
 var init = false;
 var validateRequest = require("../auth/validateRequest");
+var _dbmodules = require('../other_modules/db_components')
 var _db;
 var _ObjectId;
 
@@ -25,20 +26,22 @@ exports.getAllTransactions = function (req, res) {
     });
 };
 
-exports.addTransactionsItem = function  (req, res) {
+exports.addTransaction = function  (req, res) {
     console.log("HTTP Post Request: /api/v1/transactions/addItem")
-    var item = req.body;
-    _db.collection('transactionsList').save(item,
-      function (err, data) {
-        if (err) {
-          console.log(err);
-          if(res) res.status(503).end(JSON.stringify(err))
-        }
-        if(res) res.status(201).end(JSON.stringify(data));
+    var transaction = req.body;
+    var promise = _dbmodules.createTransaction(req.body);
+    promise.then(function(user) {
+      _db.transactionsList.save(transaction, function (err, user) {
+          if (err) {
+            console.log(err);
+            if(res) res.status(503).end(JSON.stringify(err))
+          } else
+            if(res) res.status(201).end(JSON.stringify(user));
+      });
     });
 };
 
-exports.getTransactionsItem = function (req, res) {
+exports.getTransaction = function (req, res) {
     console.log("HTTP Get Request: /api/v1/transactions/:id")
     _db.collection('transactionsList').findOne ({
       $oid: _ObjectId(req.param.id)
@@ -52,10 +55,10 @@ exports.getTransactionsItem = function (req, res) {
 };
 
 
-exports.updateTransactionsItem = function (req, res, next) {
+exports.updateTransactions = function (req, res, next) {
   console.log("HTTP Put Request: /api/v1/transactions/update/:id")
     _db.transactionsList.findOne({
-      $oid: _db._ObjectId(req.params.id)
+      $oid: _ObjectId(req.params.id)
     }, function (err, data) {
       var updProd = {};
       for (var n in data) {
@@ -66,7 +69,7 @@ exports.updateTransactionsItem = function (req, res, next) {
           updProd[n] = req.params[n];
       }
       _db.transactionsList.update({
-        _id: _db._ObjectId(req.params.id)
+        _id: _ObjectId(req.params.id)
       }, updProd, {
         multi: false
       }, function (err, data) {
@@ -76,7 +79,7 @@ exports.updateTransactionsItem = function (req, res, next) {
   return next();
 };
 
-exports.deleteTransactionsItem = function (req, res) {
+exports.deleteTransaction = function (req, res) {
   console.log("HTTP Delete Request: /api/v1/transactions/delete/:id")
     _db.collection('transactionsList').remove({
       $oid: _ObjectId(req.body.id)
@@ -90,4 +93,17 @@ exports.deleteTransactionsItem = function (req, res) {
 };
 
 exports.updateQuantity = function (req, res) {
+  _db.transactionsList.findOne({
+      $oid: _ObjectId(req.params.id)
+    }, function (err, data) {
+      data.quantity = req.params.num;
+      _db.transactionsList.update({
+        _id: _ObjectId(req.params.id)
+      }, updProd, {
+        multi: false
+      }, function (err, data) {
+        if(res) res.status(201).end(JSON.stringify(data));
+      });
+    });
+  return next();
 }
