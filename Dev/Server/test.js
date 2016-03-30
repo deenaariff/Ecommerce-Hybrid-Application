@@ -15,14 +15,15 @@ describe('Restful API Testing', function() {
   describe('Transaction Restful API', function() {
 
     var testTransaction  = {
-      "transaction": "test_sTransaction",
+      "transaction": "test_Transaction",
       "price": "test_price",
       "picture": "test_picture",
       "quantity":  "test_quantity",
       "seller": {
         "fname": "test_fname",
         "lname": "test_lname"
-      }
+      },
+      "test_status": 1
     };
 
     it('01.01: Should Return All Transactions', function(done) {
