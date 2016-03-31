@@ -1,7 +1,6 @@
 var servicesModule = angular.module('starter.services', [])
 
 servicesModule.service('UserService', function() {
-  // For the purpose of this example I will store user data on ionic local storage but you should save it on a database
   var setUser = function(user_data) {
     window.localStorage.starter_facebook_user = JSON.stringify(user_data);
   };
@@ -17,7 +16,6 @@ servicesModule.service('UserService', function() {
 })
 
 servicesModule.service('transactionAPI', function($http) {
-  // Might use a resource here that returns a JSON array
   var base = "http://localhost:5000/"
   // Some fake testing data
   var chats = [{
