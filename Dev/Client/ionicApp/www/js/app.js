@@ -43,7 +43,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   .state('SIGNIN', {
     url: '/signin',
     templateUrl: 'templates/signin.html',
-    controller: 'DashCtrl'
+    controller: 'LoginCtrl'
   })
 
   .state('HOME', {

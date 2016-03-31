@@ -1,10 +1,24 @@
-angular.module('starter.services', [])
+var servicesModule = angular.module('starter.services', [])
 
-.factory('restAPI', function($http) {
+servicesModule.service('UserService', function() {
+  // For the purpose of this example I will store user data on ionic local storage but you should save it on a database
+  var setUser = function(user_data) {
+    window.localStorage.starter_facebook_user = JSON.stringify(user_data);
+  };
+
+  var getUser = function(){
+    return JSON.parse(window.localStorage.starter_facebook_user || '{}');
+  };
+
+  return {
+    getUser: getUser,
+    setUser: setUser
+  };
+})
+
+servicesModule.service('transactionAPI', function($http) {
   // Might use a resource here that returns a JSON array
-
-  var base = "http://fe374f0d.ngrok.io"
-
+  var base = "http://localhost:5000/"
   // Some fake testing data
   var chats = [{
     id: 0,
@@ -56,4 +70,29 @@ angular.module('starter.services', [])
       return null;
     }
   };
+});
+
+servicesModule.factory('userAPI', function($http) {
+  return {
+    addUser: function (user) {
+      return $http.post({
+          url: base+'/api/v1/users/addUser',
+          data: user
+      }).success(function(res) {
+          return res;
+      }).error(function (err) {
+          return err;
+      });
+    },
+    deleteUser: function(userId) {
+      return $http.delete({
+        url: base+'/api/v1/users/deleteUser',
+        data: user
+      }).success(function(res) {
+          return res;
+      }).error(function (err) {
+          return err;
+      });
+    }
+  }
 });

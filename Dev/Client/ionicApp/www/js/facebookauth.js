@@ -1,16 +1,17 @@
+function facebookLogin($cordovaOauth, $http) {
+      $cordovaOauth.facebook("119506955112274", ["email", "public_profile"], {redirect_uri: "http://localhost/callback"})
+        .then(function(result){
+            displayData($http, result.access_token);
+        },  function(error){
+                alert("Error: " + error);
+      });
+}
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '119506955112274',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+function displayData($http, access_token) {
+  $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name,gender,location,picture", format: "json" }})
+    .then(function(result) {
+        console.log(result.data.name);
+    }, function(error) {
+        alert("Error: " + error);
+  });
+}
