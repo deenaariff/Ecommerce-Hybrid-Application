@@ -49,7 +49,7 @@ app.controller('LoginCtrl', function($scope, $state, $q, UserService, $ionicLoad
 
   $scope.facebookSignIn = function() {
     facebookConnectPlugin.getLoginStatus(function(success){
-      if(success.status === 'connected'){
+      if(success.status === 'connected') {
 
         console.log('getLoginStatus', success.status);
 
@@ -74,7 +74,7 @@ app.controller('LoginCtrl', function($scope, $state, $q, UserService, $ionicLoad
 						console.log('profile info fail', fail);
 					});
 				}else{
-					$state.go('app.home');
+					$state.go('HOME');
 				}
       } else {
 
