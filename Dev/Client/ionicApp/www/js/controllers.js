@@ -103,6 +103,7 @@ app.controller('MenuCtrl', function($scope, $stateParams, transactionAPI) {
       });
     };
 
+    
     $scope.foodsYesterday = [ { name: 'Lasagna' ,
                             price: '$7.00',
                             description: 'Fresh Vegetarian Lasagna',
