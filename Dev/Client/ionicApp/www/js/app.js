@@ -80,4 +80,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   // if none of the above states are matched, use this as default
   $urlRouterProvider.otherwise('/signin');
 
+})
+
+.directive('hideTabs', function($rootScope) {
+return {
+    restrict: 'A',
+    link: function($scope, $el) {
+        $rootScope.hideTabs = 'tabs-item-hide';
+        $scope.$on('$destroy', function() {
+            $rootScope.hideTabs = '';
+        });
+    }
+  };
 });

@@ -1,6 +1,6 @@
 var app = angular.module('starter.controllers', []);
 
-app.controller('LoginCtrl', function($scope, $state, $q, UserService, $ionicLoading) {
+app.controller('LoginCtrl', function($scope, $state, $q, userAPI, $ionicLoading) {
   var fbLoginSuccess = function(response) {
     if (!response.authResponse){
       fbLoginError("Cannot find the authResponse");
@@ -11,7 +11,7 @@ app.controller('LoginCtrl', function($scope, $state, $q, UserService, $ionicLoad
 
   getFacebookProfileInfo(authResponse)
     .then(function(profileInfo) {
-      UserService.setUser({
+      userAPI.addUser({
         authResponse: authResponse,
 				userID: profileInfo.id,
 				name: profileInfo.name,
@@ -68,7 +68,7 @@ app.controller('LoginCtrl', function($scope, $state, $q, UserService, $ionicLoad
 							picture : "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
 						});
 
-						$state.go('app.home');
+						$state.go('HOME');
 					}, function(fail){
 						// Fail get profile info
 						console.log('profile info fail', fail);
