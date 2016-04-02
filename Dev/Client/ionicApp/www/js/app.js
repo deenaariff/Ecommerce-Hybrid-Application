@@ -7,10 +7,13 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    // hideTabs
+    $rootScope.showTabs = false;
+    //
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -41,7 +44,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   // Each tab has its own nav history stack:
 
   .state('SIGNIN', {
-    url: '/signin',
+    url: '/',
     templateUrl: 'templates/signin.html',
     controller: 'LoginCtrl'
   })
@@ -78,18 +81,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 
 
   // if none of the above states are matched, use this as default
-  $urlRouterProvider.otherwise('/signin');
+  $urlRouterProvider.otherwise('/');
 
 })
-
-.directive('hideTabs', function($rootScope) {
-return {
-    restrict: 'A',
-    link: function($scope, $el) {
-        $rootScope.hideTabs = 'tabs-item-hide';
-        $scope.$on('$destroy', function() {
-            $rootScope.hideTabs = '';
-        });
-    }
-  };
-});

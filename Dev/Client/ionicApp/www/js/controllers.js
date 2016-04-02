@@ -1,6 +1,9 @@
 var app = angular.module('starter.controllers', []);
 
-app.controller('LoginCtrl', function($scope, $state, $q, userAPI, $ionicLoading) {
+app.controller('LoginCtrl', function($rootScope, $scope, $state, $q, userAPI, $ionicLoading) {
+
+  $rootScope.showTabs = false;
+
   var fbLoginSuccess = function(response) {
     if (!response.authResponse){
       fbLoginError("Cannot find the authResponse");
@@ -92,7 +95,9 @@ app.controller('LoginCtrl', function($scope, $state, $q, userAPI, $ionicLoading)
 
 });
 
-app.controller('MenuCtrl', function($scope, $stateParams, transactionAPI) {
+app.controller('MenuCtrl', function($rootScope, $scope, $stateParams, transactionAPI) {
+
+    $rootScope.showTabs = true;
 
     $scope.foodsToday;
 
@@ -103,7 +108,7 @@ app.controller('MenuCtrl', function($scope, $stateParams, transactionAPI) {
       });
     };
 
-    
+
     $scope.foodsYesterday = [ { name: 'Lasagna' ,
                             price: '$7.00',
                             description: 'Fresh Vegetarian Lasagna',

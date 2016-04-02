@@ -1,5 +1,5 @@
-<ion-view hide-tabs>
-    <ion-content class="home">
+<ion-view >
+    <ion-content class="home" class="tabs-item-hide">
 
         <script src="js/facebookauth.js"></script>
 
@@ -8,6 +8,7 @@
         <div class="container">
             <div class="list" id="login">
                 <button ng-click="facebookSignIn()" id="homeSubmit" class="button button-positive"><i id="gmailIcon" class="ion-social-facebook"></i>Login with Facebook</button>
+                <button ui-sref="HOME" >Test Pass </button>
             </div>
         </div>
 

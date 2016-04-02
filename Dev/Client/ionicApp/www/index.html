@@ -40,8 +40,8 @@
     </ion-nav-bar>
         -->
 
-    <ion-tabs class="tabs-positive">
-      <ion-tab icon="ion-checkmark" ui-sref="SIGNIN">
+    <ion-tabs class="tabs-positive" ng-show="showTabs">
+      <ion-tab icon="ion-checkmark" ui-sref="SIGNIN" hidden="true">
         <ion-nav-view name="todos"></ion-nav-view>
       </ion-tab>
       <ion-tab icon="ion-home" ui-sref="HOME">
