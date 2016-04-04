@@ -137,3 +137,40 @@ app.controller('MenuCtrl', function($rootScope, $scope, $stateParams, transactio
 
                         ];
 });
+
+app.controller('PurchaseCtrl', function($scope, $state, $cordovaGeolocation) {
+
+  console.log("hi");
+
+  var options = {timeout: 10000, enableHighAccuracy: true};
+
+  $scope.getStuff = function() {
+
+    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+
+      console.log( "Latitude is: " + position.coords.latitude + " and longitude is: " +
+      position.coords.longitude );
+
+      var latLng = new google.maps.LatLng(position.coords.latitude , position.coords.longitude);
+
+      var mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+  }, function(error){
+    console.log("Could not get location");
+  });
+
+
+  };
+
+  //getStuff();
+
+
+
+
+});

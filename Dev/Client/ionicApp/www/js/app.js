@@ -64,7 +64,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   .state('PURCHASE', {
       url: '/purchase',
       templateUrl: 'templates/purchase.html',
-      controller: 'MenuCtrl'
+      controller: 'PurchaseCtrl'
   })
 
   .state('SELLER', {
